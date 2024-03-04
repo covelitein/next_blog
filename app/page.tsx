@@ -1,15 +1,29 @@
-import { Header } from "@/components/blogpage";
-import Link from "next/link";
+import Container from "@/components/Container";
+import { AddBlogButton, Header, Hero, Posts } from "@/components/blogpage";
+import { prisma } from "@/server";
+import { headers } from "next/headers";
 
 export default async function Home() {
-  
+  headers()
+  const posts = (await prisma.post.findMany({})).reverse()
   return (
-    <div>
-      <Header />
-      <section className="min-h-[80vh] flex flex-col justify-center items-center gap-4">
-        <h4 className="text-4xl text-center max-md:text-2xl">Welcome to Next blogs</h4>
-        <Link href={'/posts'} className="bg-[#151515] text-white p-3 rounded-lg ">View Posts</Link>
-      </section>
-    </div>
+    <section className="">
+      {/* header section start */}
+        <Header />
+      {/* header section end */}
+
+      {/* hero section start */}
+        <Hero />
+      {/* hero section end */}
+
+      {/* posts section start */}
+        <Posts posts={posts}/>
+      {/* posts section end */}
+
+      {/* add blog icon */}
+        <AddBlogButton />
+      {/* add blog icon */}
+
+    </section>
   );
 }

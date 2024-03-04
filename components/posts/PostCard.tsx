@@ -11,7 +11,7 @@ import { Clock3 } from "lucide-react";
 import { truncate } from "@/lib/utils";
 export default function PostCard({ post }: any) {
   return (
-    <Link href={'/'}>
+    <Link href={`/posts/${post.id}`}>
         <Card className="shadow-none border-none">
         <CardHeader className="p-0 rounded-lg overflow-hidden">
             <img
@@ -27,8 +27,7 @@ export default function PostCard({ post }: any) {
             {truncate(post.content, 20, 25, 20)}
             </CardDescription>
         </CardContent>
-        <CardFooter className="flex items-center justify-between">
-            <div className="h-16 w-16 rounded-full bg-blue-600"></div>
+        <CardFooter className="flex items-center justify-between px-2">
             <div className="flex items-center gap-2">
             <Clock3 className="text-blue-500 text-sm" />
             <span className="text-blue-600 font-[550] text-sm">

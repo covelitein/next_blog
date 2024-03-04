@@ -1,17 +1,34 @@
-"use client"
-import { Skeleton } from "../ui/skeleton";
-
-export default function PostSkeleton() {
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle
+  } from '@/components/ui/card'
+  import { Skeleton } from '@/components/ui/skeleton'
+  
+  const PostCardSkeleton = () => {
     return (
-        <div className="flex flex-col space-y-3">
-           <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-        <div className="space-y-2">
-            <Skeleton className="h-6 w-[200px]" />
-        </div>
-        <div className="space-y-2">
-            <Skeleton className="h-4 w-[250px]" />
-            <Skeleton className="h-4 w-[200px]" />
-        </div>
-      </div>
+      <Card className='h-fit'>
+        <CardHeader>
+          <CardTitle className='line-clamp-1 '>
+            <Skeleton className='h-6 w-4/5' />
+          </CardTitle>
+          <CardDescription>
+            <Skeleton className='h-5 w-[128px]' />
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className='h-5 w-full mb-1' />
+          <Skeleton className='h-5 w-full ' />
+          <Skeleton className='h-5 w-full' />
+        </CardContent>
+        <CardFooter className='flex justify-end'>
+          <Skeleton className='h-9 w-[69.5px] rounded-md' />
+        </CardFooter>
+      </Card>
     )
-}
+  }
+  export default PostCardSkeleton
+  
