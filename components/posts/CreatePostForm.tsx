@@ -51,7 +51,7 @@ export default function CreatePost() {
         description: "blog created successfully",
         action: <ToastAction altText="Goto schedule to undo">Undo</ToastAction>,
       });
-      router.replace("/posts");
+      router.replace("/");
       router.refresh();
     },
   });
