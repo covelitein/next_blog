@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { FetchConfig } from 'http-react'
 import localFont from 'next/font/local';
+import AuthProvider from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,11 +29,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <FetchConfig baseUrl="/api">
-          <div>
-            {children}
-          </div>
-        </FetchConfig>
+        <AuthProvider>
+          <FetchConfig baseUrl="/api">
+            <div>
+              {children}
+            </div>
+          </FetchConfig>
+        </AuthProvider>
         <Toaster />
       </body>
     </html>
