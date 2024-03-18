@@ -1,10 +1,11 @@
 "use client";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useFetch from "http-react";
 import { z } from "zod";
+import { useSession } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,12 +22,15 @@ import { formSchema } from "@/schemaValidations";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 import Container from "../Container";
+import { useState } from "react";
 
 type FormSchema = z.infer<typeof formSchema>;
 
 export default function CreatePost() {
   const { toast } = useToast();
   const router = useRouter();
+  const { data: session } = useSession()
+  const [ sessionEmail, setSessionEmail ] = useState<any>("session?.user?.email")
 
   const form = useForm<FormSchema>({
     resolver: zodResolver(formSchema),
@@ -56,7 +60,15 @@ export default function CreatePost() {
     },
   });
 
-  const onSubmit = form.handleSubmit(submitPost);
+  const onSubmit = session ? form.handleSubmit(submitPost) : (e:any) => {
+    e.preventDefault()
+    toast({
+      variant:'destructive',
+      title: "Notice",
+      description: "Please login first",
+    });
+  }
+ 
 
   return (
     <Container className="max-w-4xl mt-7">
