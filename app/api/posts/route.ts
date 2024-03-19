@@ -35,7 +35,7 @@ export async function POST(request: Request) {
           content: body.content,
           author: {
             connect: {id: user.id}
-          }
+          },
         }
       })
   

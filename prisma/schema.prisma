@@ -10,8 +10,9 @@ datasource db {
 model Post {
   id      String   @id @default(auto()) @map("_id") @db.ObjectId
   content String
-  date    DateTime @db.Date
+  date    DateTime  @default(now())
   img     String
+  author  User  @relation(fields: [userId], references: [id])
   title   String
   userId  String   @db.ObjectId
 }
@@ -21,4 +22,5 @@ model User {
   email String @unique
   img   String
   name  String
+  posts Post[]
 }
