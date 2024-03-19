@@ -1,22 +1,20 @@
+//@ts-nocheck
+"use client"
 import ReactMarkdown from "react-markdown";
 import { Post } from "@prisma/client";
 import Link from "next/link";
-import { ArrowLeft, Clock3 } from "lucide-react";
+import { ArrowLeft, Clock3, TrashIcon } from "lucide-react";
 import { formatDate } from "@/lib/getDate";
-import { headers } from "next/headers";
-import { useSession } from "next-auth/react";
 import { prisma } from "@/server";
+import { Button } from "../ui/button";
+import { useSession } from "next-auth/react";
 
 interface Props {
   post: Post;
 }
 
-const PostDetails = async ({ post }: Props) => {
-  const user = await prisma.user.findUnique({
-    where: {
-      id: post?.userId,
-    },
-  });
+const PostDetails = ({ post, user }: Props) => {
+  const { data: session } = useSession()
 
   return (
     <section>
@@ -24,6 +22,15 @@ const PostDetails = async ({ post }: Props) => {
         <ArrowLeft size={18} />
         Back
       </Link>
+
+      {session?.user?.email === user.email ? (
+        <div className="my-4 flex justify-end">
+          <Button className="bg-red-500 hover:bg-red-400">
+            <TrashIcon className="text-white text-sm" />
+          </Button>
+        </div>
+      ) : null}
+
       <div className="mb-7">
         <img
           src={post.img}
