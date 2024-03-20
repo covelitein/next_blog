@@ -5,9 +5,8 @@ import { Post } from "@prisma/client";
 import Link from "next/link";
 import { ArrowLeft, Clock3, TrashIcon } from "lucide-react";
 import { formatDate } from "@/lib/getDate";
-import { prisma } from "@/server";
-import { Button } from "../ui/button";
 import { useSession } from "next-auth/react";
+import { PostDeleteButton } from ".";
 
 interface Props {
   post: Post;
@@ -25,9 +24,7 @@ const PostDetails = ({ post, user }: Props) => {
 
       {session?.user?.email === user.email ? (
         <div className="my-4 flex justify-end">
-          <Button className="bg-red-500 hover:bg-red-400">
-            <TrashIcon className="text-white text-sm" />
-          </Button>
+          <PostDeleteButton postId={post.id}/>
         </div>
       ) : null}
 
